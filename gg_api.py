@@ -49,7 +49,12 @@ def get_presenters(year):
     return presenters
 
 def extract_text(tweet):
-    return tweet['text'].lower()
+    return tweet['text']#.lower()
+
+def extract_entities(text):
+    tokens = nltk.word_tokenize(text)
+    chunks = nltk.chunk.ne_chunk(nltk.pos_tag(tokens))
+    print(chunks)
 
 def pre_ceremony():
     '''This function loads/fetches/processes any data your program
@@ -61,7 +66,6 @@ def pre_ceremony():
     print("Pre-ceremony processing complete.")
     return
 
-
 def main():
     '''This function calls your program. Typing "python gg_api.py"
     will run this function. Or, in the interpreter, import gg_api
@@ -71,7 +75,9 @@ def main():
     # Your code here
     with open('gg2013.json') as t:
         tweets = json.load(t)
-    print(extract_text(tweets[0]))
+    #print(extract_text(tweets[0]))
+    for i in range(17000, 17001):
+        extract_entities(extract_text(tweets[i]))
     #
     return
 
