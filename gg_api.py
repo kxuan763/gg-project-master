@@ -54,11 +54,14 @@ def extract_text(tweet):
 def extract_entities(text):
     tokens = nltk.word_tokenize(text)
     chunks = nltk.chunk.ne_chunk(nltk.pos_tag(tokens))
+    entities = []
     for c in chunks:
-        if type(c) is not tuple and c.label() == 'PERSON':
-            print(c)
-            #for leaf in c:
-            #    print(leaf)
+        if type(c) is not tuple:
+            #print(c.leaves())
+            entities.append(' '.join(leaf[0] for leaf in c.leaves()))
+    return entities
+            
+
 
 def pre_ceremony():
     '''This function loads/fetches/processes any data your program
@@ -80,8 +83,8 @@ def main():
     with open('gg2013.json') as t:
         tweets = json.load(t)
     #print(extract_text(tweets[0]))
-    for i in range(17000, 17001):
-        extract_entities(extract_text(tweets[i]))
+    for i in range(17000, 17008):
+        print(extract_entities(extract_text(tweets[i])))
     #
     return
 
