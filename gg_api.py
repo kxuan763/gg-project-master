@@ -54,7 +54,11 @@ def extract_text(tweet):
 def extract_entities(text):
     tokens = nltk.word_tokenize(text)
     chunks = nltk.chunk.ne_chunk(nltk.pos_tag(tokens))
-    print(chunks)
+    for c in chunks:
+        if type(c) is not tuple and c.label() == 'PERSON':
+            print(c)
+            #for leaf in c:
+            #    print(leaf)
 
 def pre_ceremony():
     '''This function loads/fetches/processes any data your program
